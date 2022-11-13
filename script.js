@@ -41,7 +41,6 @@ renderizarProductos(catAlmanaques, "A")
 renderizarProductos(catEmpresariales, "B")
 renderizarProductos(catImprenta, "C")
 renderizarProductos(catMaterial, "D")
-contador()
 
 
 // .......................................................... CARRITO ....................................................................
@@ -63,7 +62,8 @@ for (let item of carritoStorage) {
     carrito.push(productoAgregado)
     totalProductosCarrito()
     eliminarCarrito() // esto esta aca porque al recargar la página ya no funcionaba el boton de eliminar para los productos
-                    //que se habian renderizado del storage, quizas hay un lugar mas optimo, pero aca funciona.
+    //que se habian renderizado del storage, quizas hay un lugar mas optimo, pero aca funciona.
+    contador()
 }
 
 //EVENTO AÑADIR CARRITO
