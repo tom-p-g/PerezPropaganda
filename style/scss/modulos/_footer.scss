@@ -1,0 +1,15 @@
+footer {
+    background-color:  rgb(11, 0, 59);
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    .footerContenido{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        width: 100%;
+    }
+}

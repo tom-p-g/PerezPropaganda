@@ -1,16 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="./style/css/style.css">
     <title>Perez Propaganda</title>
 </head>
+
 <body>
-    <h1>Perez Propaganda - Imprenta</h1>
-    <h2>Trabajo Final de JS - Coderhouse</h2>
-    <h3>por Tomás Perez</h3>
-    <h4>L̵͈̹̳̂̐͠ò̴̢͛̓a̶̡̛̟̳͑b̴̡̘̠͆̌ ̶̳͌ï̵͚͍͋s̷̫̼̿͐̋ ̷̳̍ň̴̖̭͂͋o̸̎͊̀͜t̴͇͉͑̅ͅ ̶͔͎̕͠r̵̤̹̄̌̇ȅ̷̛͎̪̱́å̴̱̲̃̚l̸̡͓̳͑͗͠</h4>
+    <header>
+        <nav>
+            <h1>Perez Propaganda</h1>
+            <ul id="botones">
+                <li class="boton">INICIO</li>
+                <li class="boton">QUIENES SOMOS</li>
+                <li class="boton">PRODUCTOS</li>
+                <li class="boton">CONTACTO</li>
+                <li class="boton">BUSCAR</li>
+            </ul>
+        </nav>
+    </header>
+    <main id="principal" class="principal">
+        <section id="productosSeccion" class="">
+            <h2>PRODUCTOS</h2>
+            <section id="catProductos">
+                <h2>PRODUCTOS POR CATEGORÍA</h2>
+                <h3>ALMANAQUES</h3>
+                <div class="cajaCategoria">
+                    <div id="catAlmanaques" class="subCajaCategoria"></div>
+                </div>
+                <h3>EMPRESARIALES</h3>
+                <div class="cajaCategoria">
+                    <div id="catEmpresariales" class="subCajaCategoria">
+                    </div>
+                </div>
+                <h3>IMPRENTA</h3>
+                <div class="cajaCategoria">
+                    <div id="catImprenta" class="subCajaCategoria">
+                    </div>
+                </div>
+                <h3>MATERIAL EN BLANCO</h3>
+                <div class="cajaCategoria">
+                    <div id="catMaterial" class="subCajaCategoria">
+                    </div>
+                </div>
+            </section>
+        </section>
+        <div id="toggleCarrito">
+            <button id="btnVerCarrito"><div id="contador"></div><i id="simbolo"class="fa fa-shopping-cart"></i></button>
+            
+        </div>
+        <section id="carritoSeccion"class="hide">
+            <div id="carrito" >
+                <h3>Carrito</h3>
+                <div class="detalleCompra">
+                    <h3>Total = $<p id="total"></p>
+                    </h3>
+                    <button id="btnPagar">Pagar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footerContenido">
+            <p>CONTACTO: Pueyrredon 84 - Bahía Blanca - Tel: 4543020 - perezpropaganda@gmail.com</p>
+        </div>
+    </footer>
+
+
     <script src="./script.js"></script>
 </body>
+
+
 </html>

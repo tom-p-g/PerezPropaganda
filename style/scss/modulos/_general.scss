@@ -1,0 +1,183 @@
+.hide {
+    display: none;
+}
+
+h1{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:white;
+    text-transform: uppercase;
+}
+h2,h3{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: black;
+    text-align: center;
+
+}
+.principal {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    align-items: center;
+    position: relative;
+    background-color: rgb(183, 188, 223);
+    z-index: 1;
+    #toggleCarrito {
+        margin: 1%;
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        margin-left: -88vw;
+        margin-top: 2vh;
+        &:hover{
+            transform: scale(1.2);
+        }
+        
+        #btnVerCarrito {
+            background-color: rgb(62, 107, 108);
+            height: 80px;
+            width: 80px;
+            border: none;
+            transition: all;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+            i{
+                color: white;
+                font-size: 30pt;
+                
+                .volver {
+                 font-size: 15pt;
+                 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;   
+                }
+            }
+            #contador {
+                height: 15px;
+                width: 15px;
+                background-color: red;
+                border-radius: 50%;
+                display: flex;
+                margin-left: 5px;
+                align-items: center;
+                justify-content: center;
+                #pContador {
+                    font-size: 8pt;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .cajaCategoria {
+        width: 100vw;
+        display: flex;
+        direction: column;
+        justify-content: center;
+        align-items: center;
+        .subCajaCategoria {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            width: 90%;
+        
+        }
+    }
+
+}
+.cartaProducto{
+    height: 400px;
+    width: 300px;
+    border: solid 2px gray;
+    border-radius: 20px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: lightgray;
+    .listaProducto {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        list-style: none;
+    }
+    .imgProd {
+        width: 180px;
+        height: 180px;
+    
+    }
+    
+    .inputCant {
+     
+        width: 70px ;
+        
+    }
+    .cantProd {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+}
+
+#carrito {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+
+    background-color:  rgb(183, 188, 223);
+    .detalleCompra {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 50%;
+        h3 {
+            display: flex;
+        }
+    }
+    .productosCarrito {
+        display: flex;
+        padding: 1%;
+        justify-content:space-around;
+        background-color:lightgrey;
+        align-items: center;
+        border: solid 2px gray ;
+        height: 200px;
+        width: 100%;
+        ul {
+           display: flex;
+           justify-content: space-around; 
+           align-items: center;
+           width: 80%;
+           li {
+            font-size: 16pt;
+            font-weight: 400;
+            display: flex;
+            justify-content: space-around;
+           }
+        }  
+        .imgCarrito {
+            height: 100px;
+            width: 100px;
+        }
+        .elimCarrito {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background-color: red;
+            color: white;
+            border: none;
+        }
+    }
+}
