@@ -138,9 +138,21 @@ h2, h3 {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 50%; }
+    width: 50%;
+    height: 10vh; }
     #carrito .detalleCompra h3 {
       display: flex; }
+    #carrito .detalleCompra #btnPagar {
+      height: 40px;
+      width: 60px;
+      border: none;
+      border-radius: 20px;
+      font-size: 16pts;
+      color: white;
+      background-color: blue;
+      transition: all; }
+      #carrito .detalleCompra #btnPagar:hover {
+        transform: scale(1.1); }
   #carrito .productosCarrito {
     display: flex;
     padding: 1%;

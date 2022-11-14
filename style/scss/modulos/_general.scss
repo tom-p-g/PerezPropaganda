@@ -142,8 +142,22 @@ h2,h3{
         justify-content: space-around;
         align-items: center;
         width: 50%;
+        height: 10vh;
         h3 {
             display: flex;
+        }
+        #btnPagar {
+            height:40px;
+            width: 60px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16pts;
+            color: white;
+            background-color: blue;
+            transition: all;
+            &:hover {
+                transform: scale(1.1);
+            }
         }
     }
     .productosCarrito {
