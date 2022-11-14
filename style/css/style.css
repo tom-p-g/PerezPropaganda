@@ -125,6 +125,23 @@ h2, h3 {
     justify-content: center;
     flex-wrap: wrap;
     align-items: center; }
+  .cartaProducto .botonesProd {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 80px;
+    width: 90%; }
+    .cartaProducto .botonesProd .btnCarta {
+      height: 40px;
+      width: 80px;
+      border: none;
+      border-radius: 20px;
+      font-size: 16pts;
+      color: white;
+      background-color: #3e6b6c;
+      transition: all; }
+      .cartaProducto .botonesProd .btnCarta:hover {
+        transform: scale(1.1); }
 
 #carrito {
   display: flex;
@@ -149,7 +166,7 @@ h2, h3 {
       border-radius: 20px;
       font-size: 16pts;
       color: white;
-      background-color: blue;
+      background-color: #3e6b6c;
       transition: all; }
       #carrito .detalleCompra #btnPagar:hover {
         transform: scale(1.1); }
