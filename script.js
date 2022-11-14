@@ -22,6 +22,12 @@ const id5 = new Producto(5, "Tarjetas Personales", 42, "C", "Local")
 productos.push(id5)
 const id6 = new Producto(6, "Miñon", 14.5, "D", "Soler")
 productos.push(id6)
+const id7 = new Producto(7, "Cubo Portalapiz", 500, "B", "Jivi")
+productos.push(id7)
+const id8 = new Producto(8, "Mensual Agenda", 275, "D", "Soler")
+productos.push(id8)
+const id9 = new Producto(9, "Folletos", 85, "C", "")
+productos.push(id9)
 
 //ELEMENTOS POR ID (LUGARES DEL HTML)
 
