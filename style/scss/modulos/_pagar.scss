@@ -1,0 +1,35 @@
+.pagar{
+    height: 70vh;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+    form {
+       @extend .pagar;
+       .pagarFormItem {
+        @extend .pagar;
+        .checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+       } 
+    }
+    #finalPrograma {
+        width: 80px;
+        height: 40px;
+        border-radius: 3px;
+        background-color: cadetblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        &:hover {
+            cursor: grab;
+            background-color:rgb(112, 190, 192) ;
+        }
+    }
+}

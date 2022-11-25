@@ -13,6 +13,7 @@ h2,h3{
     text-align: center;
 
 }
+
 .principal {
     display: flex;
     flex-direction: column;
@@ -22,6 +23,7 @@ h2,h3{
     background-color: rgb(183, 188, 223);
     z-index: 1;
     #toggleCarrito {
+        z-index: 99;
         margin: 1%;
         border-radius: 50%;
         height: 80px;
@@ -46,7 +48,6 @@ h2,h3{
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            
             i{
                 color: white;
                 font-size: 30pt;
@@ -91,96 +92,109 @@ h2,h3{
 
 }
 .cartaProducto{
-    height: 400px;
+    height: 500px;
     width: 300px;
     border: solid 2px gray;
     border-radius: 20px;
-    margin: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     background-color: lightgray;
+    .imgProd {
+        width: 180px;
+        height: 180px;
+    
+    }
     .listaProducto {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
         list-style: none;
-    }
-    .imgProd {
-        width: 180px;
-        height: 180px;
-    
-    }
-    
-    .inputCant {
-     
-        width: 70px ;
-        
-    }
-    .cantProd {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        flex-wrap: wrap;
-        align-items: center;
+        height: 150px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: 600;
+        .cantProd {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            height: 50%;
+            .inputCant {
+             
+                width: 150px;
+                height: 30px;
+                ;
+                
+            }
+        }
     }
     .botonesProd {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        height: 80px;
+        height: auto;
         width: 90%;
         .btnCarta {
-            height:40px;
-            width: 80px;
+            height:60px;
+            width: 100px;
+            padding: 5px;
             border: none;
             border-radius: 20px;
-            font-size: 16pts;
+            font-size: 20pts;
+            font-weight: 600;
             color: white;
             background-color:  rgb(62, 107, 108);
             transition: all;
             &:hover {
-                transform: scale(1.1);
+                background-color: rgb(121, 161, 162) ;
             }
         }
        
     }
 }
-
+.carritoDetalle {
+    display: flex;
+    height: 10vh;
+    width: 100vw;
+    justify-content: space-around;
+    align-items: center;
+    position: sticky;
+    background-color: rgba(47, 79, 79, 0.448);
+    z-index: 1;
+    h3 {
+        display: flex;
+    }
+    #btnPagar {
+        width: 80px;
+        height: 40px;
+        border-radius: 3px;
+        background-color: rgb(112, 190, 192);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-style: hidden;
+        color: white;
+        p {
+            font-size: 14pt;
+        }
+        &:hover {
+            cursor: grab;
+            background-color:rgb(106, 206, 203) ;
+        }
+    }
+}
 #carrito {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100vw;
-    height: 100vh;
-
+    height: 70vh;
     background-color:  rgb(183, 188, 223);
-    .detalleCompra {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 50%;
-        height: 10vh;
-        h3 {
-            display: flex;
-        }
-        #btnPagar {
-            height:40px;
-            width: 60px;
-            border: none;
-            border-radius: 20px;
-            font-size: 16pts;
-            color: white;
-            background-color:  rgb(62, 107, 108);
-            transition: all;
-            &:hover {
-                transform: scale(1.1);
-            }
-        }
-    }
     .productosCarrito {
         display: flex;
         padding: 1%;
@@ -207,12 +221,15 @@ h2,h3{
             width: 100px;
         }
         .elimCarrito {
-            height: 50px;
-            width: 50px;
+            height: 20px;
+            width: 20px;
             border-radius: 50%;
             background-color: red;
             color: white;
             border: none;
+            &:hover {
+                background-color: rgb(255, 75, 75);
+            }
         }
     }
 }

@@ -5,6 +5,31 @@
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   overflow-x: hidden; }
 
+.pagar, .pagar form, .pagar form .pagarFormItem {
+  height: 70vh;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around; }
+  .pagar form .pagarFormItem .checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: space-around; }
+  .pagar #finalPrograma {
+    width: 80px;
+    height: 40px;
+    border-radius: 3px;
+    background-color: cadetblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white; }
+    .pagar #finalPrograma:hover {
+      cursor: grab;
+      background-color: #70bec0; }
+
 nav {
   display: flex;
   justify-content: space-around;
@@ -44,6 +69,7 @@ h2, h3 {
   background-color: #b7bcdf;
   z-index: 1; }
   .principal #toggleCarrito {
+    z-index: 99;
     margin: 1%;
     border-radius: 50%;
     height: 80px;
@@ -98,50 +124,84 @@ h2, h3 {
       width: 90%; }
 
 .cartaProducto {
-  height: 400px;
+  height: 500px;
   width: 300px;
   border: solid 2px gray;
   border-radius: 20px;
-  margin: 10px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   background-color: lightgray; }
+  .cartaProducto .imgProd {
+    width: 180px;
+    height: 180px; }
   .cartaProducto .listaProducto {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    list-style: none; }
-  .cartaProducto .imgProd {
-    width: 180px;
-    height: 180px; }
-  .cartaProducto .inputCant {
-    width: 70px; }
-  .cartaProducto .cantProd {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center; }
+    list-style: none;
+    height: 150px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 600; }
+    .cartaProducto .listaProducto .cantProd {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      height: 50%; }
+      .cartaProducto .listaProducto .cantProd .inputCant {
+        width: 150px;
+        height: 30px; }
   .cartaProducto .botonesProd {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 80px;
+    height: auto;
     width: 90%; }
     .cartaProducto .botonesProd .btnCarta {
-      height: 40px;
-      width: 80px;
+      height: 60px;
+      width: 100px;
+      padding: 5px;
       border: none;
       border-radius: 20px;
-      font-size: 16pts;
+      font-size: 20pts;
+      font-weight: 600;
       color: white;
       background-color: #3e6b6c;
       transition: all; }
       .cartaProducto .botonesProd .btnCarta:hover {
-        transform: scale(1.1); }
+        background-color: #79a1a2; }
+
+.carritoDetalle {
+  display: flex;
+  height: 10vh;
+  width: 100vw;
+  justify-content: space-around;
+  align-items: center;
+  position: sticky;
+  background-color: rgba(47, 79, 79, 0.448);
+  z-index: 1; }
+  .carritoDetalle h3 {
+    display: flex; }
+  .carritoDetalle #btnPagar {
+    width: 80px;
+    height: 40px;
+    border-radius: 3px;
+    background-color: #70bec0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-style: hidden;
+    color: white; }
+    .carritoDetalle #btnPagar p {
+      font-size: 14pt; }
+    .carritoDetalle #btnPagar:hover {
+      cursor: grab;
+      background-color: #6acecb; }
 
 #carrito {
   display: flex;
@@ -149,27 +209,8 @@ h2, h3 {
   justify-content: flex-start;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: 70vh;
   background-color: #b7bcdf; }
-  #carrito .detalleCompra {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 50%;
-    height: 10vh; }
-    #carrito .detalleCompra h3 {
-      display: flex; }
-    #carrito .detalleCompra #btnPagar {
-      height: 40px;
-      width: 60px;
-      border: none;
-      border-radius: 20px;
-      font-size: 16pts;
-      color: white;
-      background-color: #3e6b6c;
-      transition: all; }
-      #carrito .detalleCompra #btnPagar:hover {
-        transform: scale(1.1); }
   #carrito .productosCarrito {
     display: flex;
     padding: 1%;
@@ -193,12 +234,14 @@ h2, h3 {
       height: 100px;
       width: 100px; }
     #carrito .productosCarrito .elimCarrito {
-      height: 50px;
-      width: 50px;
+      height: 20px;
+      width: 20px;
       border-radius: 50%;
       background-color: red;
       color: white;
       border: none; }
+      #carrito .productosCarrito .elimCarrito:hover {
+        background-color: #ff4b4b; }
 
 footer {
   background-color: #0b003b;

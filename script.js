@@ -47,6 +47,7 @@ renderizarProductos(catAlmanaques, "A")
 renderizarProductos(catEmpresariales, "B")
 renderizarProductos(catImprenta, "C")
 renderizarProductos(catMaterial, "D")
+contador()
 
 
 // .......................................................... CARRITO ....................................................................
@@ -77,25 +78,54 @@ for (let item of carritoStorage) {
 for (const boton of btnsCarrito) {
     boton.onclick = (e) => {
         let productoAgregado = productos.find(producto => "btn" + producto.id == e.target.id)
-        productoAgregado.cantidadCarrito = Number(prompt("Ingrese la cantidad")) //En un futuro cercano por INPUT
+        let idInput = "inputCant" + productoAgregado.id
+        const inputCant = document.getElementById(idInput)
+        productoAgregado.cantidadCarrito = inputCant.value
         productoAgregado.totalPagar = (productoAgregado.cantidadCarrito * productoAgregado.precioU) * 1.21 //nueva propiedad para productos en carrito
-        carritoRender.push(productoAgregado)
-        renderizarCarrito()
-        carrito.push(productoAgregado)
+        inputCant.value = ""
+        if (productoAgregado.cantidadCarrito >= 50 && productoAgregado.cantidadCarrito != "") {
+            carritoRender.push(productoAgregado)
+            renderizarCarrito()
+            carrito.push(productoAgregado)
 
-        //LOCAL STORAGE        
+            //LOCAL STORAGE        
 
-        carritoStorage.push(productoAgregado)
-        localStorage.setItem("carrito", JSON.stringify(carritoStorage))
+            carritoStorage.push(productoAgregado)
+            localStorage.setItem("carrito", JSON.stringify(carritoStorage))
 
-        //ELIMINAR PRODUCTOS CARRITO 
-        eliminarCarrito() // originalmente solo estaba aca
-        
-        //ACTUALIZAR PRECIO CARRITO
-        totalProductosCarrito()
-        //ACTUALIZAR CONTADOR BOTON CARRITO
-        contador()
+            //ELIMINAR PRODUCTOS CARRITO 
+            eliminarCarrito() // originalmente solo estaba aca
+
+            //ACTUALIZAR PRECIO CARRITO
+            totalProductosCarrito()
+            //ACTUALIZAR CONTADOR BOTON CARRITO
+            contador()
+            //TOAST
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                title: 'Producto Agregado al Carrito'
+            })
+        } else {
+            // alert("Error: Ingrese una cantidad")
+            Swal.fire({
+                title: "Error - Cantidad Incorrecta",
+                icon: "error",
+                text: "Ingrese una cantidad mínima de 50 unidades",
+                confirmButtonText: "Entendido"
+            })
+        }
     }
+
 }
 // .......................................................................................................................................
 
@@ -118,12 +148,70 @@ const btnPagar = document.getElementById("btnPagar")
 btnPagar.onclick = () => {
     preciosTotales = document.getElementsByClassName("totalPagar")
     for (const item of preciosTotales) {
-        precio = Number(item.innerText)    
+        precio = Number(item.innerText)
         precioFinal = precio + precioFinal
 
     }
-    alert("Importe Adeudado: $" + precioFinal + ". Gracias por su compra.")
+    let precioDisplay = precioFinal
+    Swal.fire({
+        html: `
+        <section class="pagar">
+            <form action="get">
+                <div class="pagarFormItem">
+                    <p id="importeFinal"><h3>Importe Final: $${precioFinal}</p><h3>
+                </div>
+                <div class="pagarFormItem">
+                    <h4>Ingrese su correo eléctronico</h4>
+                    <input type="email" placeholder="Ingrese su e-mail">
+                </div>
+                <div class="pagarFormItem">
+                    <h4>Ingrese su metodo de Pago</h4>
+                    <div class="checkBox">
+                    <input type="radio" id="visa">Visa
+                    <input type="radio" id="master">Master Card
+                    <input type="radio" id="mercadoPago">Mercado Pago
+                    </div>
+                </div>
+                <div class="pagarFormItem">
+                    <h4>Ingrese su tipo de factura</h4>
+                    <div class="checkBox">
+                    <input type="radio" id="facA">Factura A
+                    <input type="radio" id="facB">Factura B
+                    <input type="radio" id="facConFin">Consumidor Final
+                    </div>
+                </div>
+                <div class="pagarFormItem">
+                    <h4>Ingrese su CUIT/CUIL</h4>
+                    <input type="text" placeholder="CUIT/CUIL - Ej: 20-12345678-9">
+                </div>
+            </form>
+            <div id="finalPrograma">PAGAR</div>
+            </section>
+            `,
+        showConfirmButton:false,
+        showCancelButton:true,
+        cancelButtonText: "Cancelar",
+        
+    })
+    const finalPrograma = document.getElementById("finalPrograma")
+    finalPrograma.onclick = () => {
+        Swal.fire({
+            html: `<h3>Usted ha abonado $${precioDisplay}</h3>
+                    <p>¡Gracias por su compra!</p>
+                    <p>Recibira la factura en su correo eléctronico</p>`,
+            
+        })
+        carrito.length = 0
+        carritoStorage.length = 0
+        localStorage.setItem("carrito", JSON.stringify(carritoStorage))
+        renderizarCarrito()
+        contador()
+        carritoDom.innerHTML = ""
+        totalProductosCarrito()
+    }
     precioFinal = 0
+
+    // alert("Importe Adeudado: $" + precioFinal + ". Gracias por su compra.")
 }
 
 //---------------------------------------------------------- FIN PROGRAMA ----------------------------------------------------------------
@@ -140,9 +228,23 @@ function renderizarProductos(catProductos, categoria) { //(lugar del HTML, categ
         const cartaProducto = document.createElement("div")
         cartaProducto.className = "cartaProducto"
         catProductos.append(cartaProducto)
-        cartaProducto.innerHTML = `<div><img src="./img/prod/${String(productosFiltrados[i].id)}.jpg" alt="Foto de ${productosFiltrados[i].nombre}" class="imgProd"></div><ul class="listaProducto"><li class="idProd">${productosFiltrados[i].id}</li><li class="nomProd">${productosFiltrados[i].nombre}</li><li class="precioProd">Precio unitario: $ ${productosFiltrados[i].precioU}</li><li class="cantProd btnCarta"><p>Ingrese cantidad que desea comprar</p><input name="cantidad" id="inputCant${String(productosFiltrados[i].id)}" class="inputCant"></li></ul><div class="botonesProd"><button type="button" class="btnCarrito btnCarta" id="btn${productosFiltrados[i].id}">Añadir al Carrito</button><button type="button" class="infoProd btnCarta">Mas Información</button></div>`
-        //Disculpas por el orden de esta linea, por alguna razon cuando la puse indentada no funcionaba y la desplegue asi y funciono
-        //fue la primera vez que lo hacia
+        cartaProducto.innerHTML = `
+        <div>
+            <img src="./img/prod/${String(productosFiltrados[i].id)}.jpg" alt="Foto de ${productosFiltrados[i].nombre}" class="imgProd">
+        </div>
+        <ul class="listaProducto">
+            <li class="nomProd">${productosFiltrados[i].nombre}</li>
+            <li class="precioProd">Precio unitario: $ ${productosFiltrados[i].precioU}</li>
+            <li class="cantProd btnCarta">
+                <p>Ingrese cantidad que desea comprar</p>
+                <input name="cantidad" id="inputCant${String(productosFiltrados[i].id)}" class="inputCant">
+            </li>
+        </ul>
+        <div class="botonesProd">
+            <button type="button" class="btnCarrito btnCarta" id="btn${productosFiltrados[i].id}">Añadir al Carrito</button>
+            <button type="button" class="infoProd btnCarta">Mas Información</button>
+        </div>
+    `
     }
 }
 function Producto(id, nombre, precioU, categoria, provedor, cantidadCarrito, totalPagar) { //funcion constructora de objetos
@@ -176,7 +278,7 @@ function renderizarCarrito() {  //Quizas polemico tener 2 arrays de carrito pero
         carritoDom.append(productoCarrito)
         carritoRender.length = 0 //RESET ARRAY
     }
-}  
+}
 function eliminarCarrito() {
     let btnsElim = document.getElementsByClassName("elimCarrito") // Toma botones de eliminar
     for (const boton of btnsElim) {
@@ -203,12 +305,12 @@ function eliminarCarrito() {
             contador()
         }
     }
-    
+
 }
-function totalProductosCarrito () {
+function totalProductosCarrito() {
     preciosTotales = document.getElementsByClassName("totalPagar")
     for (const item of preciosTotales) {
-        precio = Number(item.innerText)    
+        precio = Number(item.innerText)
         precioFinal = precio + precioFinal
 
     }
@@ -218,21 +320,21 @@ function totalProductosCarrito () {
 
 function contador() {
     let contador = document.getElementById("contador")
-if (carrito.length > 0 ) {
-    let numero = carrito.length
-
-    contador.innerHTML = `<p id="pContador">${numero}</p>` 
-} else {
-    contador.innerHTML = `<p id="pContador">0</p>`
-}
+    if (carrito.length > 0) {
+        let numero = carrito.length
+        contador.innerHTML = `<p id="pContador">${numero}</p>`
+    }
+    else {
+        contador.innerHTML = `<p id="pContador">0</p>`
+    }
 }
 function volver() {
     if (carritoSeccion.className != "hide") {
         let contador = document.getElementById("contador")
         contador.className = "hide"
         let simbolo = document.getElementById("simbolo")
-        simbolo.className =""
-        simbolo.innerHTML =  `<p class="volver" style="font-family = Arial">VOLVER</p> `
+        simbolo.className = ""
+        simbolo.innerHTML = `<p class="volver" style="font-family = Arial">VOLVER</p> `
 
     } else {
         simbolo.innerHTML = ""
