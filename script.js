@@ -128,7 +128,7 @@ function programa(data) {
     }
     // .......................................................................................................................................
 
-    // VER SECCION CARRITO O SECCION PRODUCTOS POR BOTON
+    // TOGGLE SECCION PRODUCTOS / CARRITO POR BOTON
 
     const btnCarrito = document.getElementById("btnVerCarrito")
 
@@ -247,11 +247,7 @@ function renderizarProductos(catProductos, categoria) { //(lugar del HTML, categ
     let productosFiltrados = []
     productosFiltrados.length = 0
     productosFiltrados = productos.filter(producto => producto.categoria === categoria)
-    console.log(productosFiltrados)
-    
-
     for (let i = 0; i < productosFiltrados.length; i++) {
-
         const cartaProducto = document.createElement("div")
         cartaProducto.className = "cartaProducto"
         catProductos.append(cartaProducto)
@@ -277,14 +273,12 @@ function renderizarProductos(catProductos, categoria) { //(lugar del HTML, categ
 
 //RENDER CARRITO
 function renderizarCarrito() {  
-
     if (carritoRender.length > 0) {
-
         const productoCarrito = document.createElement('div')
         productoCarrito.id = "carritoRenderItem" + carritoRender[0].id
         productoCarrito.className = "productosCarrito"
         productoCarrito.innerHTML = ` 
-        <img class="imgCarrito" src="/img/prod/${carritoRender[0].id}.jpg" alt="">
+        <img class="imgCarrito" src="./img/prod/${carritoRender[0].id}.jpg" alt="">
         <ul>
         <li>${carritoRender[0].nombre}</li>
         <li>Cantidad: ${carritoRender[0].cantidadCarrito}</li>
