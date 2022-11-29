@@ -12,7 +12,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around; }
+  .pagar form .pagarFormItem .importeFinal {
+    background-color: rgba(47, 79, 79, 0.448); }
   .pagar form .pagarFormItem .checkbox {
+    width: 600px;
     display: flex;
     align-items: center;
     justify-content: space-around; }
@@ -68,6 +71,37 @@ h2, h3 {
   position: relative;
   background-color: #b7bcdf;
   z-index: 1; }
+  .principal #productosSeccion #tituloProd {
+    height: 50px;
+    width: 100vw;
+    background-color: rgba(47, 79, 79, 0.448);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+  .principal #productosSeccion #catProductos, .principal #productosSeccion #catProductos .tituloCat {
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    .principal #productosSeccion #catProductos .tituloCat {
+      height: 50px;
+      width: 100vw;
+      background-color: rgba(47, 79, 79, 0.448); }
+    .principal #productosSeccion #catProductos .cajaCategoria {
+      width: 100vw;
+      display: flex;
+      direction: column;
+      justify-content: center;
+      align-items: center; }
+      .principal #productosSeccion #catProductos .cajaCategoria .subCajaCategoria {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin-left: 30px;
+        align-items: center;
+        width: 100%; }
   .principal #toggleCarrito {
     z-index: 99;
     margin: 1%;
@@ -79,7 +113,7 @@ h2, h3 {
     align-items: center;
     position: absolute;
     margin-left: -88vw;
-    margin-top: 2vh; }
+    margin-top: 5vh; }
     .principal #toggleCarrito:hover {
       transform: scale(1.2); }
     .principal #toggleCarrito #btnVerCarrito {
@@ -110,22 +144,11 @@ h2, h3 {
         .principal #toggleCarrito #btnVerCarrito #contador #pContador {
           font-size: 8pt;
           color: white; }
-  .principal .cajaCategoria {
-    width: 100vw;
-    display: flex;
-    direction: column;
-    justify-content: center;
-    align-items: center; }
-    .principal .cajaCategoria .subCajaCategoria {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      align-items: center;
-      width: 90%; }
 
 .cartaProducto {
   height: 500px;
   width: 300px;
+  margin: 10px;
   border: solid 2px gray;
   border-radius: 20px;
   padding: 10px;

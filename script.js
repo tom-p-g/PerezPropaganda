@@ -1,33 +1,23 @@
 //VARIABLES 
+
 let precioFinal = 0
 let total = 0
+
 // ARRAY
+
 const productos = []
 const carrito = []
 const carritoRender = []
 let carritoStorage = []
 let preciosFinales = []
 
-//CONSTRUCTOR OBJETOS
+//FETCH
 
-const id1 = new Producto(1, "Almanaque de Bolsillo", 75, "A", "Nivel 10" + "Posse");
-productos.push(id1)
-const id2 = new Producto(2, "Aplique de Heladera", 85, "A", "Nivel10" + "Posse")
-productos.push(id2)
-const id3 = new Producto(3, "Señaladores", 90, "A", "Nivel 10" + "Posse")
-productos.push(id3)
-const id4 = new Producto(4, "Boligrafo", 145, "B", "Jivi")
-productos.push(id4)
-const id5 = new Producto(5, "Tarjetas Personales", 42, "C", "Local")
-productos.push(id5)
-const id6 = new Producto(6, "Miñon", 14.5, "D", "Soler")
-productos.push(id6)
-const id7 = new Producto(7, "Cubo Portalapiz", 500, "B", "Jivi")
-productos.push(id7)
-const id8 = new Producto(8, "Mensual Agenda", 275, "D", "Soler")
-productos.push(id8)
-const id9 = new Producto(9, "Folletos", 85, "C", "")
-productos.push(id9)
+fetch("./productos.json")
+ .then(r => r.json())
+ .then(data => programa(data)) 
+
+
 
 //ELEMENTOS POR ID (LUGARES DEL HTML)
 
@@ -40,188 +30,225 @@ const carritoSecccion = document.getElementById("carritoSeccion")
 const productosSeccion = document.getElementById("productosSeccion")
 let totalDisplay = document.getElementById("total")
 
-
 //----------------------------------------------------------- PROGRAMA -------------------------------------------------------------------
 
-renderizarProductos(catAlmanaques, "A")
-renderizarProductos(catEmpresariales, "B")
-renderizarProductos(catImprenta, "C")
-renderizarProductos(catMaterial, "D")
-contador()
-
-
-// .......................................................... CARRITO ....................................................................
-
-const btnsCarrito = document.getElementsByClassName("btnCarrito")
-const inputsCant = document.getElementsByClassName("inputCant")
-
-//IMPORTACION LOCAL STORAGE
-
-if (localStorage.getItem("carrito")) {
-    carritoStorage = JSON.parse(localStorage.getItem("carrito"))
-}
-//RENDER DE PRODUCTOS DE LOCAL STORAGE
-
-for (let item of carritoStorage) {
-    let productoAgregado = item
-    carritoRender.push(productoAgregado)
-    renderizarCarrito()
-    carrito.push(productoAgregado)
-    totalProductosCarrito()
-    eliminarCarrito() // esto esta aca porque al recargar la página ya no funcionaba el boton de eliminar para los productos
-    //que se habian renderizado del storage, quizas hay un lugar mas optimo, pero aca funciona.
-    contador()
-}
-
-//EVENTO AÑADIR CARRITO
-
-for (const boton of btnsCarrito) {
-    boton.onclick = (e) => {
-        let productoAgregado = productos.find(producto => "btn" + producto.id == e.target.id)
-        let idInput = "inputCant" + productoAgregado.id
-        const inputCant = document.getElementById(idInput)
-        productoAgregado.cantidadCarrito = inputCant.value
-        productoAgregado.totalPagar = (productoAgregado.cantidadCarrito * productoAgregado.precioU) * 1.21 //nueva propiedad para productos en carrito
-        inputCant.value = ""
-        if (productoAgregado.cantidadCarrito >= 50 && productoAgregado.cantidadCarrito != "") {
-            carritoRender.push(productoAgregado)
-            renderizarCarrito()
-            carrito.push(productoAgregado)
-
-            //LOCAL STORAGE        
-
-            carritoStorage.push(productoAgregado)
-            localStorage.setItem("carrito", JSON.stringify(carritoStorage))
-
-            //ELIMINAR PRODUCTOS CARRITO 
-            eliminarCarrito() // originalmente solo estaba aca
-
-            //ACTUALIZAR PRECIO CARRITO
-            totalProductosCarrito()
-            //ACTUALIZAR CONTADOR BOTON CARRITO
-            contador()
-            //TOAST
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-
-            Toast.fire({
-                title: 'Producto Agregado al Carrito'
-            })
-        } else {
-            // alert("Error: Ingrese una cantidad")
-            Swal.fire({
-                title: "Error - Cantidad Incorrecta",
-                icon: "error",
-                text: "Ingrese una cantidad mínima de 50 unidades",
-                confirmButtonText: "Entendido"
-            })
-        }
-    }
-
-}
-// .......................................................................................................................................
-
-// VER SECCION CARRITO O SECCION PRODUCTOS POR BOTON
-
-const btnCarrito = document.getElementById("btnVerCarrito")
-
-btnCarrito.onclick = () => {
-    carritoSeccion.classList.toggle("hide")
-    if (carritoSeccion.className != "hide") {
-        productosSeccion.className = "hide"
-    } else {
-        productosSeccion.className = ""
-    }
-    volver()
-}
-
-//PAGAR
-const btnPagar = document.getElementById("btnPagar")
-btnPagar.onclick = () => {
-    preciosTotales = document.getElementsByClassName("totalPagar")
-    for (const item of preciosTotales) {
-        precio = Number(item.innerText)
-        precioFinal = precio + precioFinal
-
-    }
-    let precioDisplay = precioFinal
-    Swal.fire({
-        html: `
-        <section class="pagar">
-            <form action="get">
-                <div class="pagarFormItem">
-                    <p id="importeFinal"><h3>Importe Final: $${precioFinal}</p><h3>
-                </div>
-                <div class="pagarFormItem">
-                    <h4>Ingrese su correo eléctronico</h4>
-                    <input type="email" placeholder="Ingrese su e-mail">
-                </div>
-                <div class="pagarFormItem">
-                    <h4>Ingrese su metodo de Pago</h4>
-                    <div class="checkBox">
-                    <input type="radio" id="visa">Visa
-                    <input type="radio" id="master">Master Card
-                    <input type="radio" id="mercadoPago">Mercado Pago
-                    </div>
-                </div>
-                <div class="pagarFormItem">
-                    <h4>Ingrese su tipo de factura</h4>
-                    <div class="checkBox">
-                    <input type="radio" id="facA">Factura A
-                    <input type="radio" id="facB">Factura B
-                    <input type="radio" id="facConFin">Consumidor Final
-                    </div>
-                </div>
-                <div class="pagarFormItem">
-                    <h4>Ingrese su CUIT/CUIL</h4>
-                    <input type="text" placeholder="CUIT/CUIL - Ej: 20-12345678-9">
-                </div>
-            </form>
-            <div id="finalPrograma">PAGAR</div>
-            </section>
-            `,
-        showConfirmButton:false,
-        showCancelButton:true,
-        cancelButtonText: "Cancelar",
-        
+function programa(data) { 
+    
+    // Toma la data del fetch , construye objetos y push al array de productos
+   
+    data.forEach(element => {
+        construirObjetos(element)
     })
-    const finalPrograma = document.getElementById("finalPrograma")
-    finalPrograma.onclick = () => {
+  
+    // RENDER PRODUCTOS
+
+    renderizarProductos(catAlmanaques, "A")
+    renderizarProductos(catEmpresariales, "B")
+    renderizarProductos(catImprenta, "C")
+    renderizarProductos(catMaterial, "D")
+    contador()
+
+
+    // .......................................................... CARRITO ....................................................................
+
+    const btnsCarrito = document.getElementsByClassName("btnCarrito")
+    const inputsCant = document.getElementsByClassName("inputCant")
+
+    //IMPORTACION LOCAL STORAGE
+
+    if (localStorage.getItem("carrito")) {
+        carritoStorage = JSON.parse(localStorage.getItem("carrito"))
+    }
+    //RENDER DE PRODUCTOS DE LOCAL STORAGE
+
+    for (let item of carritoStorage) {
+        let productoAgregado = item
+        carritoRender.push(productoAgregado)
+        renderizarCarrito()
+        carrito.push(productoAgregado)
+        totalProductosCarrito()
+        eliminarCarrito() // esto esta aca porque al recargar la página ya no funcionaba el boton de eliminar para los productos
+        //que se habian renderizado del storage, quizas hay un lugar mas optimo, pero aca funciona.
+        contador()
+    }
+
+    //EVENTO AÑADIR CARRITO
+
+    for (const boton of btnsCarrito) {
+        boton.onclick = (e) => {
+            let productoAgregado = productos.find(producto => "btn" + producto.id == e.target.id)
+            let idInput = "inputCant" + productoAgregado.id
+            const inputCant = document.getElementById(idInput)
+            productoAgregado.cantidadCarrito = inputCant.value
+            productoAgregado.totalPagar = (productoAgregado.cantidadCarrito * productoAgregado.precioU) * 1.21
+            inputCant.value = ""
+            if (productoAgregado.cantidadCarrito >= 50 && productoAgregado.cantidadCarrito != "") {
+                carritoRender.push(productoAgregado)
+                renderizarCarrito()
+                carrito.push(productoAgregado)
+
+                //LOCAL STORAGE        
+
+                carritoStorage.push(productoAgregado)
+                localStorage.setItem("carrito", JSON.stringify(carritoStorage))
+
+                //ELIMINAR PRODUCTOS CARRITO 
+                eliminarCarrito() // originalmente solo estaba aca
+
+                //ACTUALIZAR PRECIO CARRITO
+                totalProductosCarrito()
+                //ACTUALIZAR CONTADOR BOTON CARRITO
+                contador()
+                //TOAST
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    title: 'Producto Agregado al Carrito'
+                })
+            } else {
+                // alert("Error: Ingrese una cantidad")
+                Swal.fire({
+                    title: "Error - Cantidad Incorrecta",
+                    icon: "error",
+                    text: "Ingrese una cantidad mínima de 50 unidades",
+                    confirmButtonText: "Entendido"
+                })
+            }
+        }
+
+    }
+    // .......................................................................................................................................
+
+    // VER SECCION CARRITO O SECCION PRODUCTOS POR BOTON
+
+    const btnCarrito = document.getElementById("btnVerCarrito")
+
+    btnCarrito.onclick = () => {
+        carritoSeccion.classList.toggle("hide")
+        if (carritoSeccion.className != "hide") {
+            productosSeccion.className = "hide"
+        } else {
+            productosSeccion.className = ""
+        }
+        volver()
+    }
+
+    //PAGAR
+    const btnPagar = document.getElementById("btnPagar")
+    btnPagar.onclick = () => {
+        preciosTotales = document.getElementsByClassName("totalPagar")
+        for (const item of preciosTotales) {
+            precio = Number(item.innerText)
+            precioFinal = precio + precioFinal
+
+        }
+        let precioDisplay = precioFinal
+        if (precioFinal > 0){
         Swal.fire({
-            html: `<h3>Usted ha abonado $${precioDisplay}</h3>
-                    <p>¡Gracias por su compra!</p>
-                    <p>Recibira la factura en su correo eléctronico</p>`,
+            html: `
+            <section class="pagar">
+                <form action="get">
+                    <div class="pagarFormItem">
+                        <p id="importeFinal"><h3>Importe Final: $${precioFinal}<h3></p>
+                    </div>
+                    <div class="pagarFormItem">
+                        <h4>Ingrese su correo eléctronico</h4>
+                        <input type="email" placeholder="Ingrese su e-mail">
+                    </div>
+                    <div class="pagarFormItem">
+                        <h4>Ingrese su metodo de Pago</h4>
+                        <div class="checkBox">
+                        <input type="radio" id="visa" name="pago">Visa
+                        <input type="radio" id="master" name="pago">Master Card
+                        <input type="radio" id="mercadoPago" name="pago">Mercado Pago
+                        </div>
+                    </div>
+                    <div class="pagarFormItem">
+                        <h4>Ingrese su tipo de factura</h4>
+                        <div class="checkBox">
+                        <input type="radio" id="facA" name="factura">Factura A
+                        <input type="radio" id="facB"  name="factura">Factura B
+                        <input type="radio" id="facConFin"  name="factura">Consumidor Final
+                        </div>
+                    </div>
+                    <div class="pagarFormItem">
+                        <h4>Ingrese su CUIT/CUIL</h4>
+                        <input type="text" placeholder="CUIT/CUIL - Ej: 20-12345678-9">
+                    </div>
+                </form>
+                <div id="finalPrograma">PAGAR</div>
+                </section>
+                `,
+            showConfirmButton:false,
+            showCancelButton:true,
+            cancelButtonText: "Cancelar",
             
         })
-        carrito.length = 0
-        carritoStorage.length = 0
-        localStorage.setItem("carrito", JSON.stringify(carritoStorage))
-        renderizarCarrito()
-        contador()
-        carritoDom.innerHTML = ""
-        totalProductosCarrito()
+        const finalPrograma = document.getElementById("finalPrograma")
+        finalPrograma.onclick = () => {
+            Swal.fire({
+                html: `<h3>Usted ha abonado $${precioDisplay}</h3>
+                        <p>¡Gracias por su compra!</p>
+                        <p>Recibira la factura en su correo eléctronico</p>`,
+                
+            })
+            carrito.length = 0
+            carritoStorage.length = 0
+            localStorage.setItem("carrito", JSON.stringify(carritoStorage))
+            renderizarCarrito()
+            contador()
+            carritoDom.innerHTML = ""
+            totalProductosCarrito()
+        }
+        precioFinal = 0
+    } else {
+        Swal.fire ({
+            icon: "error",
+            text:"No hay items en el carrito",
+            confirmButtonText:"Entendido"
+        })
     }
-    precioFinal = 0
-
-    // alert("Importe Adeudado: $" + precioFinal + ". Gracias por su compra.")
+    }
+//---------------------------------------------------------- FIN PROGRAMA ----------------------------------------------------------------
 }
 
-//---------------------------------------------------------- FIN PROGRAMA ----------------------------------------------------------------
 
-//FUNCIONES
+
+//FUNCIONES ---------------------------------------------------------------------------------------------------------------------------------------
+
+//CONSTURCTORAS DE OBJETOS - con el fetch se trae un array que contiene arrays con la informacion que necesita la funcion constructora "Producto"
+
+function Producto(id, nombre, precioU, categoria, provedor, cantidadCarrito, totalPagar) { //funcion constructora de objetos
+    this.nombre = nombre
+    this.id = id
+    this.precioU = precioU
+    this.categoria = categoria
+    this.provedor = provedor
+    this.cantidadCarrito = cantidadCarrito
+    this.totalPagar = totalPagar
+}
+function construirObjetos(producto) { //esta funcion se usa en el fetch para que la info de cada array del JSON cree un nuevo objeto producto que va al array de productos
+    let aux = new Producto(...producto)
+    productos.push(aux)
+}
+
+//RENDER PRODUCTOS SEPARADO POR CATEGORIA
 
 function renderizarProductos(catProductos, categoria) { //(lugar del HTML, categoría de los objetos)
     let productosFiltrados = []
     productosFiltrados.length = 0
     productosFiltrados = productos.filter(producto => producto.categoria === categoria)
+    console.log(productosFiltrados)
+    
 
     for (let i = 0; i < productosFiltrados.length; i++) {
 
@@ -247,17 +274,9 @@ function renderizarProductos(catProductos, categoria) { //(lugar del HTML, categ
     `
     }
 }
-function Producto(id, nombre, precioU, categoria, provedor, cantidadCarrito, totalPagar) { //funcion constructora de objetos
-    this.nombre = nombre
-    this.id = id
-    this.precioU = precioU
-    this.categoria = categoria
-    this.provedor = provedor
-    this.cantidadCarrito = cantidadCarrito
-    this.totalPagar = totalPagar
-}
-function renderizarCarrito() {  //Quizas polemico tener 2 arrays de carrito pero no conseguía que funcione correctamente renderizar
-    //productos con un solo array (se me repetían). Este array es temporal y se vacia luego de cumplir su función.
+
+//RENDER CARRITO
+function renderizarCarrito() {  
 
     if (carritoRender.length > 0) {
 
@@ -265,16 +284,16 @@ function renderizarCarrito() {  //Quizas polemico tener 2 arrays de carrito pero
         productoCarrito.id = "carritoRenderItem" + carritoRender[0].id
         productoCarrito.className = "productosCarrito"
         productoCarrito.innerHTML = ` 
-      <img class="imgCarrito" src="/img/prod/${carritoRender[0].id}.jpg" alt="">
-      <ul>
-       <li>${carritoRender[0].nombre}</li>
-       <li>Cantidad: ${carritoRender[0].cantidadCarrito}</li>
-       <li>Subtotal: $ ${carritoRender[0].cantidadCarrito * carritoRender[0].precioU}</li>
-       <li>IVA: $ ${(carritoRender[0].cantidadCarrito * carritoRender[0].precioU) * 0.21} </li>
-       <li>Total: $ <p class="totalPagar">${carritoRender[0].totalPagar}</p></li>
-      </ul>
-      <button id="${carritoRender[0].id}" class="elimCarrito">X</button>
-      `
+        <img class="imgCarrito" src="/img/prod/${carritoRender[0].id}.jpg" alt="">
+        <ul>
+        <li>${carritoRender[0].nombre}</li>
+        <li>Cantidad: ${carritoRender[0].cantidadCarrito}</li>
+        <li>Subtotal: $ ${carritoRender[0].cantidadCarrito * carritoRender[0].precioU}</li>
+        <li>IVA: $ ${(carritoRender[0].cantidadCarrito * carritoRender[0].precioU) * 0.21} </li>
+        <li>Total: $ <p class="totalPagar">${carritoRender[0].totalPagar}</p></li>
+        </ul>
+        <button id="${carritoRender[0].id}" class="elimCarrito">X</button>
+        `
         carritoDom.append(productoCarrito)
         carritoRender.length = 0 //RESET ARRAY
     }
@@ -307,6 +326,7 @@ function eliminarCarrito() {
     }
 
 }
+//CALCULO PRECIO FINAL
 function totalProductosCarrito() {
     preciosTotales = document.getElementsByClassName("totalPagar")
     for (const item of preciosTotales) {
@@ -317,7 +337,7 @@ function totalProductosCarrito() {
     totalDisplay.innerText = precioFinal
     precioFinal = 0
 }
-
+//MISCELANEO
 function contador() {
     let contador = document.getElementById("contador")
     if (carrito.length > 0) {

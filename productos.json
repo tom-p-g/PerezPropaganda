@@ -1,0 +1,17 @@
+[
+    [1, "Almanaque de Bolsillo", 75, "A", "Nivel 10"],
+    [2, "Aplique de Heladera", 85, "A", "Nivel10"],
+    [3, "Señaladores", 90, "A", "Nivel 10"],
+    [4, "Boligrafo", 145, "B", "Jivi"],
+    [5, "Tarjetas Personales", 42, "C", "Local"],
+    [6, "Miñon", 14.5, "D", "Soler"],
+    [7, "Cubo Portalapiz", 500, "B", "Jivi"],
+    [8, "Mensual Agenda", 275, "D", "Soler"],
+    [9, "Folletos", 85, "C", ""],
+    [10, "Almanaque de Taco", 850, "A", "Posse"],
+    [11, "Carpitas de Escritorio", 550, "B", "Mondo"],
+    [12, "Murales de Cartulina", 200, "A", "Nivel 10"],
+    [13, "Llaveros de Cristal", 180, "B", "Jivi"],
+    [14, "Talonarios de Facturas", 400, "C", "Local"],
+    [15, "Taco", 150, "D", "Soler"]
+]

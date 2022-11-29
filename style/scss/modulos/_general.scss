@@ -22,6 +22,47 @@ h2,h3{
     position: relative;
     background-color: rgb(183, 188, 223);
     z-index: 1;
+    #productosSeccion {
+
+        #tituloProd {
+            height: 50px;
+            width: 100vw;
+            background-color: rgba(47, 79, 79, 0.448);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #catProductos {
+            display: flex;
+            width: 100vw;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .tituloCat{
+                height: 50px;
+                width: 100vw;
+                background-color: rgba(47, 79, 79, 0.448) ;
+                @extend #catProductos
+            }
+            .cajaCategoria {
+                width: 100vw;
+                display: flex;
+                direction: column;
+                justify-content: center;
+                align-items: center;
+                .subCajaCategoria {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content:flex-start;
+                    margin-left: 30px;
+                    align-items: center;
+                    width: 100%;
+                
+                }
+            }
+        }
+    }
     #toggleCarrito {
         z-index: 99;
         margin: 1%;
@@ -33,7 +74,7 @@ h2,h3{
         align-items: center;
         position: absolute;
         margin-left: -88vw;
-        margin-top: 2vh;
+        margin-top: 5vh;
         &:hover{
             transform: scale(1.2);
         }
@@ -74,26 +115,13 @@ h2,h3{
         }
     }
 
-    .cajaCategoria {
-        width: 100vw;
-        display: flex;
-        direction: column;
-        justify-content: center;
-        align-items: center;
-        .subCajaCategoria {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: center;
-            width: 90%;
-        
-        }
-    }
+    
 
 }
 .cartaProducto{
     height: 500px;
     width: 300px;
+    margin:10px;
     border: solid 2px gray;
     border-radius: 20px;
     padding: 10px;
