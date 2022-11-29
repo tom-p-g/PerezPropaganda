@@ -265,7 +265,6 @@ function renderizarProductos(catProductos, categoria) { //(lugar del HTML, categ
         </ul>
         <div class="botonesProd">
             <button type="button" class="btnCarrito btnCarta" id="btn${productosFiltrados[i].id}">Añadir al Carrito</button>
-            <button type="button" class="infoProd btnCarta">Mas Información</button>
         </div>
     `
     }
@@ -300,13 +299,13 @@ function eliminarCarrito() {
             let productoEliminar = document.getElementById("carritoRenderItem" + e.target.id) //Toma especificamente el render del producto en cual se toco el boton
             carritoDom.removeChild(productoEliminar) //elimina del DOM el render del producto
 
-            //ELIMINAR DE CARRITO FORMAL
+            //ELIMINAR DEL ARRAY CARRITO
 
             let productoEliminarCarrito = carrito.find(producto => producto.id == e.target.id) //Busca el producto en el array Carrito(no el render) que coincida x ID con el ID del evento
             let numSplice = carrito.indexOf(productoEliminarCarrito) //busca el indice en donde se encuentra
             carrito.splice(numSplice, 1) //elimina producto de carrito
 
-            //ELIMINAR LOCAL STORAGE --- La misma lógica que anterior pero sobrescribiendo el carrito del STORAGE
+            //ELIMINAR LOCAL STORAGE --- La misma lógica que anterior pero sobrescribiendo el ARRAY del STORAGE
 
             let productoEliminarStorage = carritoStorage.find(producto => producto.id == e.target.id)
             let numSplice2 = carritoStorage.indexOf(productoEliminarStorage)

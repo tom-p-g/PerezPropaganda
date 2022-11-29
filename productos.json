@@ -13,5 +13,9 @@
     [12, "Murales de Cartulina", 200, "A", "Nivel 10"],
     [13, "Llaveros de Cristal", 180, "B", "Jivi"],
     [14, "Talonarios de Facturas", 400, "C", "Local"],
-    [15, "Taco", 150, "D", "Soler"]
+    [15, "Taco", 150, "D", "Soler"],
+    [16, "Bimensual", 75, "D", "Soler"],
+    [17, "Lamina con varilla y mensual", 220, "A", "Nivel 10"],
+    [18, "Sticker", 120, "C", "Local"]
+
 ]
