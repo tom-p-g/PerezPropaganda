@@ -52,7 +52,6 @@ function programa(data) {
     // .......................................................... CARRITO ....................................................................
 
     const btnsCarrito = document.getElementsByClassName("btnCarrito")
-    const inputsCant = document.getElementsByClassName("inputCant")
 
     //IMPORTACION LOCAL STORAGE
 
@@ -134,11 +133,7 @@ function programa(data) {
 
     btnCarrito.onclick = () => {
         carritoSeccion.classList.toggle("hide")
-        if (carritoSeccion.className != "hide") {
-            productosSeccion.className = "hide"
-        } else {
-            productosSeccion.className = ""
-        }
+        carritoSeccion.className != "hide" ? productosSeccion.className = "hide" : productosSeccion.className = ""
         volver()
     }
 
